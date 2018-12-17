@@ -1,0 +1,10 @@
+matplotlib
+scipy
+the
+because
+numpy
+franca
+copycenter
+with
+matlab
+although

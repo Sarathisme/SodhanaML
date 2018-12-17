@@ -6,19 +6,20 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import re
 import os
-# import nltk
+import nltk
 # nltk.download("stopwords")
 # nltk.download("wordnet")
-# coding: utf-8
 
 def get_webpage(link):
     folder = link.split("/")[-1]
     print(folder)
+
     if ":" in folder:
         folder = folder.split(":")[0]
     else:
         folder = folder[:-1]
-        
+
+    os.chdir("webpages")
     if not os.path.isdir(folder):
         os.mkdir(folder)
 
@@ -48,8 +49,7 @@ def scrape(name):
     file.close()
 
 def clean_text(text):
-    text = re.sub("\n","", text)
-    text = re.sub("[^A-Za-z]+","", text)
+    text = re.sub("[^A-Za-z]+","\\n", text)
     return text
 
 def clean(name):
@@ -70,43 +70,49 @@ def clean(name):
         link_text.write(a['href']+"\n")
 
     # Clean paragraph file
-    old_data = []
-    for p in para.find_all("p"):
-        old_data.append(p.get_text())
+    paragraphs = []
+    for i in para.find_all("p"):
+        paragraphs.append(i.get_text())
 
-    data = []
-    for i in range(len(old_data)):
-        data.append((old_data[i]).split(" "))
+    temp = []
+    for i in paragraphs:
+        temp += i.split("\\n")
+        if '' in temp:
+            temp.remove('')
 
-    for i in range(len(data)):
-        paragraph_text.writelines(data[i])
+    if '' in temp:
+        temp.remove('')
 
-    # Tokenize and clean words
-    total_data = []
-    for i in data:
-        for j in i:
-            total_data.append(j)
+    cleaned = []
+    for i in temp:
+        cleaned += clean_text(i).split('\n')
 
     keywords_temp = []
-    keywords = [clean_text(w) for w in total_data if not w in stop_words]
+    keywords = [clean_text(w) for w in cleaned if not w in stop_words]
     for i in keywords:
         if i != "" and len(i) > 1:
             keywords_temp.append(i.lower())
 
     keywords_set = []
     errors = open(name+"/errors.txt", 'w')
+    errors_set = []
 
     for i in keywords_temp:
         try:
             if wn.synsets(i)[0].pos() == 'n':
                 keywords_set.append(i)
         except Exception as e:
-            errors.write(i+"\n")
-    
+            errors_set.append(i)
+
+    for i in set(errors_set):
+        errors.write(i + '\n')
+
     keywords_set = set(keywords_set)
 
     for i in keywords_set:
       keywords_text.write(i + "\n")
+
+    os.chdir("..")
 
 if __name__ == "__main__":
     fields = open("fields.txt", 'r')
