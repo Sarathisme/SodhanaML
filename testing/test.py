@@ -16,4 +16,3 @@ score1 = len(query & first) / len(query)
 score2 = len(query & second) / len(query)
 
 print(score1, score2)
-

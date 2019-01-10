@@ -115,7 +115,7 @@ def clean(name):
     os.chdir("..")
 
 if __name__ == "__main__":
-    fields = open("fields.txt", 'r')
+    fields = open("fields/fields.txt", 'r')
     for i in fields.readlines():
         folder = get_webpage(i)
         scrape(folder)
