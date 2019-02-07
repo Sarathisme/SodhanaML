@@ -2,12 +2,12 @@
 
 To run the project, enter the following commands in the terminal.
 
-> pip install requirements.txt
-> python app.py
-> python extract.py
-> python sort.py
-> python keywords_ieee.py
-> python filter_keywords.py
+> pip install requirements.txt <br>
+> python app.py <br>
+> python extract.py <br>
+> python sort.py <br>
+> python keywords_ieee.py <br>
+> python filter_keywords.py <br>
 
 To perform testing, go to testing folder and run the command:
 
