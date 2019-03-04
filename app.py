@@ -7,8 +7,8 @@ from nltk.tokenize import word_tokenize
 import re
 import os
 import nltk
-# nltk.download("stopwords")
-# nltk.download("wordnet")
+nltk.download("stopwords")
+nltk.download("wordnet")
 
 def get_webpage(link):
     folder = link.split("/")[-1]
