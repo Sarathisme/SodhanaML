@@ -1,6 +1,6 @@
 import nltk
 import os
-# nltk.download("stopwords")
+nltk.download("stopwords")
 from nltk.corpus import stopwords
 
 def process_query():
@@ -33,7 +33,10 @@ def get_keywords():
             data[file_name] += [i.lower() for i in file_name.split('_')]
     return data
 
-def get_scores(data, query):
+def get_scores():
+    data = get_keywords()
+    query = process_query()
+
     scores = []
     for domain in data:
         commons = set(query) & set(data[domain])
@@ -51,7 +54,5 @@ def get_scores(data, query):
     return results
 
 if __name__ == "__main__":
-    data = get_keywords()
-    query = process_query()
-    print(get_scores(data, query))
+    print(get_scores())
     
