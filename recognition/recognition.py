@@ -26,7 +26,7 @@ def get_keywords():
     for _, _, filenames in os.walk(os.getcwd()):
         for filename in filenames:
             file_name = filename.split('.')[0]
-            file = open(file_name + ".txt", 'r')
+            file = open(file_name + ".txt", 'r', encoding="utf-8")
             words = [i[:-1] for i in file.readlines()]
             data[file_name] = words
             process_name(list(file_name))
