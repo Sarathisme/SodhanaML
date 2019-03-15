@@ -62,7 +62,7 @@ def predict(output=0, learning=False, threshold=None):
 
     if output == 0:
         if learning:
-            f = open('/keywords/' + results[0][0] + '.txt', 'a')
+            f = open('/keywords/' + results[0][0] + '.txt', 'a', encoding='utf-8')
             for word in query:
                 f.write(word + "\n")
             f.close()
@@ -72,7 +72,7 @@ def predict(output=0, learning=False, threshold=None):
 
         if learning:
             for result in results:
-                f = open('/keywords/' + result[0][0] + '.txt', 'a')
+                f = open('/keywords/' + result[0][0] + '.txt', 'a', encoding='utf-8')
                 for word in query:
                     f.write(word + "\n")
                 f.close()
@@ -95,7 +95,7 @@ def fit(file=None):
         f.close()
 
         for domain, keywords in data:
-            f = open('/keywords/' + domain + '.txt', 'a')
+            f = open('/keywords/' + domain + '.txt', 'a', encoding='utf-8')
             for keyword in keywords.split(' '):
                 f.write(keyword + '\n')
 

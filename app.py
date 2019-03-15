@@ -62,7 +62,7 @@ def clean(name):
     lin = BeautifulSoup(links, "html.parser")
 
     # Create new files
-    link_text, paragraph_text = open(name+"/links.txt", 'a'), open(name+"/paragraphs.txt", 'a')
+    link_text, paragraph_text = open(name+"/links.txt", 'a', encoding='utf-8'), open(name+"/paragraphs.txt", 'a', encoding='utf-8')
     keywords_text = open(name+"/keywords.txt", 'w')
 
     # Clean link file
@@ -94,7 +94,7 @@ def clean(name):
             keywords_temp.append(i.lower())
 
     keywords_set = []
-    errors = open(name+"/errors.txt", 'w')
+    errors = open(name+"/errors.txt", 'w', encoding='utf-8')
     errors_set = []
 
     for i in keywords_temp:
@@ -115,7 +115,7 @@ def clean(name):
     os.chdir("..")
 
 if __name__ == "__main__":
-    fields = open("fields/fields.txt", 'r')
+    fields = open("fields/fields.txt", 'r', encoding='utf-8')
     for i in fields.readlines():
         folder = get_webpage(i)
         scrape(folder)

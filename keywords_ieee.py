@@ -61,7 +61,7 @@ if __name__ == "__main__":
             os.chdir(os.path.join(os.getcwd(), dir))
             print('Started retrieving keywords for ', os.path.join(os.getcwd(), 'keywords.txt'))
             keywords = open_links_get_page(os.path.join(os.getcwd(), filename + '.txt'))
-            file = open(os.path.join(os.getcwd(), 'keywords.txt'), 'a')
+            file = open(os.path.join(os.getcwd(), 'keywords.txt'), 'a', encoding='utf-8')
             if len(keywords) > 0:
                 for word in keywords:
                     file.write(word+'\n')

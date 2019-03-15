@@ -15,7 +15,7 @@ src = os.path.join(os.getcwd(), 'attachments')
 
 for folder in os.listdir(dst):
     file = ' '.join(folder.split('_')) + '.txt'
-    open(os.path.join(os.path.join(dst, folder), file), 'w')
+    open(os.path.join(os.path.join(dst, folder), file), 'w', encoding='utf-8')
 
 for folder, file in files:
     copy2(os.path.join(src, file), os.path.join(dst, folder))
