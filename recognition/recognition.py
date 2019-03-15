@@ -1,7 +1,10 @@
 import nltk
 import os
+import csv
+
 nltk.download("stopwords")
 from nltk.corpus import stopwords
+
 
 def process_query():
     query = [i.lower() for i in input("Enter a query: ").split(" ")]
@@ -9,6 +12,7 @@ def process_query():
     stop_words = set(stopwords.words('english'))
     query = set(query) - stop_words
     return query
+
 
 def process_name(name):
     if '(' in name:
@@ -19,6 +23,7 @@ def process_name(name):
 
     name = ''.join([i.lower() for i in name])
     return name
+
 
 def get_keywords():
     data = {}
@@ -33,7 +38,8 @@ def get_keywords():
             data[file_name] += [i.lower() for i in file_name.split('_')]
     return data
 
-def get_scores():
+
+def predict(output=0, learning=False):
     data = get_keywords()
     query = process_query()
 
@@ -51,8 +57,47 @@ def get_scores():
         elif score == maximum:
             results.append((domain, score))
 
-    return results
+    if output == 0:
+        if learning:
+            f = open('/keywords/' + results[0][0] + '.txt', 'a')
+            for word in query:
+                f.write(word + "\n")
+            f.close()
+
+        return results[0]
+    else:
+
+        if learning:
+            for result in results:
+                f = open('/keywords/' + result[0][0] + '.txt', 'a')
+                for word in query:
+                    f.write(word + "\n")
+                f.close()
+        return results
+
+
+def fit(file=None):
+    if file is not None:
+        f = open(file, 'r')
+        csv_reader = csv.reader(f)
+
+        rows = []
+        for row in csv_reader:
+            rows.append(row)
+
+        data = []
+        for row in rows:
+            data.append((row[0], row[1]))
+
+        f.close()
+
+        for domain, keywords in data:
+            f = open('/keywords/' + domain + '.txt', 'a')
+            for keyword in keywords.split(' '):
+                f.write(keyword + '\n')
+
+        print("Training completed.")
+
 
 if __name__ == "__main__":
-    print(get_scores())
-    
+    print(predict())
