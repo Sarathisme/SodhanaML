@@ -39,7 +39,7 @@ def get_keywords():
     return data
 
 
-def predict(output=0, learning=False):
+def predict(output=0, learning=False, threshold=None):
     data = get_keywords()
     query = process_query()
 
@@ -48,7 +48,10 @@ def predict(output=0, learning=False):
         commons = set(query) & set(data[domain])
         scores.append((domain, len(commons) / len(set(query))))
 
-    maximum = max([score for _, score in scores])
+    if threshold is None:
+        maximum = max([score for _, score in scores])
+    else:
+        maximum = threshold
 
     results = []
     for domain, score in scores:
