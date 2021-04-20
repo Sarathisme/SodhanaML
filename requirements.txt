@@ -20,7 +20,7 @@ more-itertools==4.3.0
 nltk==3.4
 parsel==1.5.1
 pluggy==0.8.0
-py==1.7.0
+py==1.10.0
 py-thesaurus==1.0.5
 pyasn1==0.4.4
 pyasn1-modules==0.2.2
